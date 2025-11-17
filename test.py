@@ -2,112 +2,15 @@ import streamlit as st
 
 st.set_page_config(page_title="EBA Express", layout="wide")
 
+st.title("🍔 EBA Express")
+st.markdown("**AI-Enabled Online Restaurant – Delicious Food, Delivered Fast!**")
+st.image("https://placehold.co/1200x350?text=EBA+Express+Hero+Image", width='stretch')
+st.markdown("---")  # Optional separator line
+
 # ----------------- SESSION STATE -----------------
 if "cart" not in st.session_state:
     st.session_state.cart = {}  # {item_name: {"price": float, "qty": int}}
 
-# ----------------- NAVBAR HTML -----------------
-st.html("""
-    <style>
-        #custom-navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 65px;
-            padding: 12px 25px;
-            background: white;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 999999 !important;
-        }
-
-        .navbar-left {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .hamburger {
-            cursor: pointer;
-            font-size: 26px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: background 0.2s;
-            user-select: none;
-        }
-        .hamburger:hover {
-            background: #eeeeee;
-        }
-
-        .navbar-title {
-            font-size: 26px;
-            font-weight: bold;
-            position: relative;
-            left: -5px;
-        }
-
-        .navbar-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-        .navbar-center input {
-            width: 60%;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #bbb;
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .icon-btn {
-            font-size: 24px;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 6px;
-            transition: background 0.2s;
-            user-select: none;
-        }
-        .icon-btn:hover {
-            background: #f0f0f0;
-        }
-
-        .profile-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid #888;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        /* Make Streamlit content start lower so it doesn't hide under navbar */
-        .main > div {
-            padding-top: 80px;
-        }
-    </style>
-
-    <div id="custom-navbar">
-        <div class="navbar-left">
-            <div class="hamburger">☰</div>
-            <div class="navbar-title">EBA Express</div>
-        </div>
-
-        <div class="navbar-center">
-            <input type="text" placeholder="Search menu (UI only)...">
-        </div>
-
-        <div class="navbar-right">
-            <div class="icon-btn" onclick="window.alert('Cart clicked!')">🛒</div>
-            <img src="https://placehold.co/40x40" class="profile-pic" onclick="window.alert('Profile clicked!')">
-        </div>
-    </div>
-""")
 
 # ----------------- DATA MODEL (SIMPLE MOCK) -----------------
 menu_items = [
@@ -174,7 +77,7 @@ ai_tab = st.sidebar.radio("Mode", ["Info", "Ask AI"], label_visibility="collapse
 if ai_tab == "Ask AI":
     st.sidebar.subheader("Ask EBA Assistant")
     user_question = st.sidebar.text_area("Question", height=80, placeholder="Ask about dishes, delivery, hours...")
-    if st.sidebar.button("Send", use_container_width=True):
+    if st.sidebar.button("Send", width='stretch'):
         # Placeholder: integrate with LLM later
         st.sidebar.info("AI response placeholder. (Connect to ChatService/LLM in backend.)")
 else:
@@ -196,7 +99,7 @@ with left_col:
         cols = st.columns(len(featured))
         for col, item in zip(cols, featured):
             with col:
-                st.image(item["image"], caption=item["name"], use_container_width=True)
+                st.image(item["image"], caption=item["name"], width='stretch')
                 st.caption(item["description"])
                 st.markdown(f"**${item['price']:.2f}**")
                 if st.button(f"Add to Cart", key=f"feat_{item['name']}"):
@@ -243,7 +146,7 @@ with left_col:
             with st.container(border=True):
                 cols = st.columns([1, 2, 1])
                 with cols[0]:
-                    st.image(item["image"], use_container_width=True)
+                    st.image(item["image"], width='stretch')
                 with cols[1]:
                     st.markdown(f"### {item['name']}")
                     st.markdown(item["description"])
@@ -253,7 +156,7 @@ with left_col:
                     if st.button(
                         "Add to Cart",
                         key=f"add_{item['name']}",
-                        use_container_width=True,
+                        width='stretch',
                     ):
                         add_to_cart(item["name"], item["price"])
 
@@ -277,11 +180,11 @@ with right_col:
 
         col_a, col_b = st.columns(2)
         with col_a:
-            if st.button("Clear Cart", use_container_width=True):
+            if st.button("Clear Cart", width='stretch'):
                 clear_cart()
                 st.experimental_rerun()
         with col_b:
-            st.button("Checkout (Mock)", use_container_width=True)
+            st.button("Checkout (Mock)", width='stretch')
 
     st.markdown("---")
     st.caption(
