@@ -4,7 +4,7 @@ st.set_page_config(page_title="EBA Express", layout="wide")
 
 st.title("🍔 EBA Express")
 st.markdown("**AI-Enabled Online Restaurant – Delicious Food, Delivered Fast!**")
-st.image("https://placehold.co/1200x350?text=EBA+Express+Hero+Image", use_container_width=True)
+st.image("https://placehold.co/1200x350?text=EBA+Express+Hero+Image", width='stretch')
 st.markdown("---")  # Optional separator line
 
 # ----------------- SESSION STATE -----------------
@@ -81,7 +81,7 @@ if ai_tab == "Ask AI":
         height=80,
         placeholder="Ask about dishes, delivery, hours..."
     )
-    if st.sidebar.button("Send", use_container_width=True):
+    if st.sidebar.button("Send", width='stretch'):
         # Placeholder: integrate with LLM later
         st.sidebar.info("AI response placeholder. (Connect to ChatService/LLM in backend.)")
 else:
@@ -103,7 +103,7 @@ with left_col:
         cols = st.columns(len(featured))
         for col, item in zip(cols, featured):
             with col:
-                st.image(item["image"], caption=item["name"], use_container_width=True)
+                st.image(item["image"], caption=item["name"], width='stretch')
                 st.caption(item["description"])
                 st.markdown(f"**${item['price']:.2f}**")
                 if st.button("Add to Cart", key=f"feat_{item['name']}"):
@@ -150,7 +150,7 @@ with left_col:
             with st.container(border=True):
                 cols = st.columns([1, 2, 1])
                 with cols[0]:
-                    st.image(item["image"], use_container_width=True)
+                    st.image(item["image"], width='stretch')
                 with cols[1]:
                     st.markdown(f"### {item['name']}")
                     st.markdown(item["description"])
@@ -160,7 +160,7 @@ with left_col:
                     if st.button(
                         "Add to Cart",
                         key=f"add_{item['name']}",
-                        use_container_width=True,
+                        width='stretch',
                     ):
                         add_to_cart(item["name"], item["price"])
 
@@ -184,8 +184,8 @@ with right_col:
 
         col_a, col_b = st.columns(2)
         with col_a:
-            if st.button("Clear Cart", use_container_width=True):
+            if st.button("Clear Cart", width='stretch'):
                 clear_cart()
                 st.experimental_rerun()
         with col_b:
-            st.button("Checkout (Mock)", use_container_width=True)
+            st.button("Checkout (Mock)", width='stretch')
